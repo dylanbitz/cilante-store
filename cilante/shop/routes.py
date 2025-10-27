@@ -1,18 +1,17 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .forms import ContactForm
+from . import shop
 
-shop_bp = Blueprint('shop', __name__)
-
-@shop_bp.route('/')
+@shop.route('/')
 def index():
     return render_template('index.html')
 
-@shop_bp.route('/product')
+@shop.route('/product')
 def product():
     # Aquí se puede agregar la lógica para obtener información del producto
     return render_template('product.html')
 
-@shop_bp.route('/contact', methods=['GET', 'POST'])
+@shop.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
     if form.validate_on_submit():
