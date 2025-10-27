@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cilanté - Tienda de Bienestar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    {% include 'base.html' %}
+
+    <header>
+        <h1>Bienvenido a Cilanté</h1>
+        <p>Descubre los beneficios del té natural y cuida de tu bienestar.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Información del Producto</h2>
+            <p>Conoce más sobre nuestro producto estrella, Cilanté.</p>
+            <ul>
+                <li><strong>Ingredientes:</strong> Cilantro cimarrón, canela, miel de abeja</li>
+                <li><strong>Beneficios:</strong> Mejora el bienestar femenino y promueve el autocuidado.</li>
+                <li><strong>Precio:</strong> $XX.XX</li>
+            </ul>
+            <img src="{{ url_for('static', filename='img/product.jpg') }}" alt="Cilanté">
+            <a href="https://wa.me/XXXXXXXXXX?text=Hola,%20estoy%20interesada%20en%20comprar%20Cilanté%20🌿" class="btn">Comprar Ahora</a>
+        </section>
+
+        <section>
+            <h2>Testimonios</h2>
+            <p>Lo que dicen nuestras usuarias:</p>
+            <blockquote>
+                "Cilanté ha cambiado mi vida, me siento más equilibrada y saludable." - Usuaria Satisfecha
+            </blockquote>
+        </section>
+
+        <section>
+            <h2>Blog</h2>
+            <p>Artículos sobre bienestar femenino y autocuidado.</p>
+            <a href="/blog" class="btn">Leer Más</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>Síguenos en nuestras redes sociales:</p>
+        <ul>
+            <li><a href="https://instagram.com/tu_cuenta">Instagram</a></li>
+            <li><a href="https://facebook.com/tu_cuenta">Facebook</a></li>
+            <li><a href="https://tiktok.com/@tu_cuenta">TikTok</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

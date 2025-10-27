@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente de Bienestar Hormonal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Asistente de Bienestar Hormonal</h1>
+        </header>
+        <main>
+            <section id="chat-container">
+                <div id="chat-box">
+                    <!-- Mensajes del chatbot se mostrarán aquí -->
+                </div>
+                <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+                <button id="send-button">Enviar</button>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2023 Cilanté. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>
