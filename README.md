@@ -8,8 +8,6 @@ Cilanté Store is a web application built with Flask that offers a unique produc
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 
@@ -102,11 +100,3 @@ cilante_store/
 - SQLAlchemy (ORM)
 - HTML5, CSS3, JavaScript (Frontend)
 - Bootstrap/Tailwind CSS (Responsive Design)
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
