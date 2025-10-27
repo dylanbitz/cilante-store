@@ -2,11 +2,10 @@ from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from .forms import LoginForm, RegistrationForm
 from ..models import User
+from . import auth
 from .. import db
 
-auth_bp = Blueprint('auth', __name__)
-
-@auth_bp.route('/login', methods=['GET', 'POST'])
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -18,14 +17,14 @@ def login():
         flash('Correo o contraseña incorrectos.', 'danger')
     return render_template('auth/login.html', form=form)
 
-@auth_bp.route('/logout')
+@auth.route('/logout')
 @login_required
 def logout():
     logout_user()
     flash('Has cerrado sesión.', 'success')
     return redirect(url_for('auth.login'))
 
-@auth_bp.route('/register', methods=['GET', 'POST'])
+@auth.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
