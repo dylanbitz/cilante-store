@@ -11,3 +11,10 @@ class ProductInquiryForm(FlaskForm):
 class PurchaseForm(FlaskForm):
     quantity = DecimalField('Cantidad', validators=[DataRequired(), NumberRange(min=1)])
     submit = SubmitField('Comprar')
+    
+class ContactForm(FlaskForm):
+    name = StringField('Nombre', validators=[DataRequired(), Length(max=100)])
+    email = StringField('Correo Electrónico', validators=[DataRequired(), Length(max=100)])
+    subject = StringField('Asunto', validators=[DataRequired(), Length(max=150)])
+    message = TextAreaField('Mensaje', validators=[DataRequired(), Length(max=1000)])
+    submit = SubmitField('Enviar Mensaje')
