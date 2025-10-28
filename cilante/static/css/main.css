@@ -1,70 +1,18 @@
-/* Main CSS styles for the Cilanté store application */
 
-/* Reset some default styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-/* Body styles */
-body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    background-color: #f8f9fa;
-    color: #343a40;
-}
+.bg-cilante-pink { background-color: #f8bbd0 !important; }
+.bg-cilante-light { background-color: #fce4ec !important; }
+.bg-cilante-beige { background-color: #fffde7 !important; }
+.text-cilante { color: #ad1457 !important; }
 
-/* Header styles */
-header {
-    background: #28a745;
-    color: #ffffff;
-    padding: 10px 0;
-    text-align: center;
-}
-
-/* Navigation styles */
-nav {
-    margin: 20px 0;
-}
-
-nav a {
-    color: #ffffff;
-    text-decoration: none;
-    padding: 10px 15px;
-}
-
-nav a:hover {
-    background: #218838;
-}
-
-/* Main content styles */
-main {
-    padding: 20px;
-}
-
-/* Button styles */
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #28a745;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.btn:hover {
-    background: #218838;
-}
-
-/* Footer styles */
-footer {
-    text-align: center;
-    padding: 20px 0;
-    background: #343a40;
-    color: #ffffff;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+.navbar-nav .nav-link:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+  transition: opacity 0.2s;
 }

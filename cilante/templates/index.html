@@ -1,54 +1,54 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cilanté - Tienda de Bienestar</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-</head>
-<body>
-    {% include 'base.html' %}
+{% extends "base.html" %}
+{% block body %}
+<main class="w-100 p-0 m-0">
+    <!-- Información del Producto -->
+    <section class="w-100 py-5 px-0 m-0 bg-cilante-light">
+        <div class="container-fluid">
+            <h2 class="fw-bold text-center mb-3 text-cilante">Información del Producto</h2>
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2"><strong>Ingredientes:</strong> Cilantro cimarrón, canela, miel de abeja</li>
+                        <li class="mb-2"><strong>Beneficios:</strong> Mejora el bienestar femenino y promueve el autocuidado.</li>
+                        <li class="mb-2"><strong>Precio:</strong> <span class="fw-semibold text-cilante">$XX.XX</span></li>
+                    </ul>
+                    <a href="https://wa.me/XXXXXXXXXX?text=Hola,%20estoy%20interesada%20en%20comprar%20Cilanté%20🌿"
+                       class="btn btn-lg px-4 py-2 fw-bold text-white d-inline-flex align-items-center"
+                       style="background-color: #25D366;">
+                        <i class="bi bi-whatsapp me-2 fs-4"></i> Comprar Ahora
+                    </a>
+                </div>
+                <div class="col-md-5 text-center">
+                    <img src="{{ url_for('static', filename='img/product.jpg') }}" alt="Cilanté" class="img-fluid rounded-3 shadow-sm" style="max-height: 250px;">
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <header>
-        <h1>Bienvenido a Cilanté</h1>
-        <p>Descubre los beneficios del té natural y cuida de tu bienestar.</p>
-    </header>
+    <!-- Testimonios -->
+    <section class="w-100 py-5 px-0 m-0 bg-cilante-pink">
+        <div class="container-fluid">
+            <h2 class="fw-bold text-center mb-3 text-cilante">Testimonios</h2>
+            <div class="text-center">
+                <blockquote class="blockquote">
+                    <p class="mb-2 fs-5">"Cilanté ha cambiado mi vida, me siento más equilibrada y saludable."</p>
+                    <footer class="blockquote-footer text-cilante">Usuaria Satisfecha</footer>
+                </blockquote>
+            </div>
+        </div>
+    </section>
 
-    <main>
-        <section>
-            <h2>Información del Producto</h2>
-            <p>Conoce más sobre nuestro producto estrella, Cilanté.</p>
-            <ul>
-                <li><strong>Ingredientes:</strong> Cilantro cimarrón, canela, miel de abeja</li>
-                <li><strong>Beneficios:</strong> Mejora el bienestar femenino y promueve el autocuidado.</li>
-                <li><strong>Precio:</strong> $XX.XX</li>
-            </ul>
-            <img src="{{ url_for('static', filename='img/product.jpg') }}" alt="Cilanté">
-            <a href="https://wa.me/XXXXXXXXXX?text=Hola,%20estoy%20interesada%20en%20comprar%20Cilanté%20🌿" class="btn">Comprar Ahora</a>
-        </section>
-
-        <section>
-            <h2>Testimonios</h2>
-            <p>Lo que dicen nuestras usuarias:</p>
-            <blockquote>
-                "Cilanté ha cambiado mi vida, me siento más equilibrada y saludable." - Usuaria Satisfecha
-            </blockquote>
-        </section>
-
-        <section>
-            <h2>Blog</h2>
-            <p>Artículos sobre bienestar femenino y autocuidado.</p>
-            <a href="/blog" class="btn">Leer Más</a>
-        </section>
-    </main>
-
-    <footer>
-        <p>Síguenos en nuestras redes sociales:</p>
-        <ul>
-            <li><a href="https://instagram.com/tu_cuenta">Instagram</a></li>
-            <li><a href="https://facebook.com/tu_cuenta">Facebook</a></li>
-            <li><a href="https://tiktok.com/@tu_cuenta">TikTok</a></li>
-        </ul>
-    </footer>
-</body>
-</html>
+    <!-- Blog -->
+    <section class="w-100 py-5 px-0 m-0 bg-cilante-beige">
+        <div class="container-fluid">
+            <h2 class="fw-bold text-center mb-3 text-cilante">Blog</h2>
+            <p class="text-center">Artículos sobre bienestar femenino y autocuidado.</p>
+            <div class="text-center">
+                <a href="/blog" class="btn btn-lg px-4 py-2 fw-bold text-cilante bg-cilante">
+                    Leer Más
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
