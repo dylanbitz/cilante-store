@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required
-from cilante.models import User
+from cilante.models import Usuarios
 from . import admin
 
 @admin.route('/admin')
@@ -11,13 +11,13 @@ def admin_dashboard():
 @admin.route('/admin/users')
 @login_required
 def manage_users():
-    users = User.query.all()
+    users = Usuarios.query.all()
     return render_template('admin/manage_users.html', users=users)
 
 @admin.route('/admin/users/delete/<int:user_id>', methods=['POST'])
 @login_required
 def delete_user(user_id):
-    user = User.query.get_or_404(user_id)
+    user = Usuarios.query.get_or_404(user_id)
     # Logic to delete the user
     # db.session.delete(user)
     # db.session.commit()
