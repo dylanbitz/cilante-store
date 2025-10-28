@@ -1,4 +1,4 @@
-# Requerimientos de la tienda de cilanté
+# 1. Requerimientos de la tienda de cilanté
 
 ## Información del producto
 
@@ -38,22 +38,23 @@ ej: “Hola, estoy interesada en comprar Cilanté 🌿”
 
 - El sitio debe incluir enlaces directos a redes sociales oficiales (Instagram, TikTok, Facebook, etc.).
 
-## ⚙️ Aspectos Técnicos (Flask + SQLite)
+# 2. Aspectos Técnicos (Flask + SQLite)
 
 | **Componente**        | **Descripción** |
 |------------------------|-----------------|
 | **Backend**            | Desarrollado con **Flask (Python 3.10+)**, usando una estructura modular basada en **Blueprints** (`auth`, `shop`, `admin`). |
 | **Base de datos**      | **SQLite** durante la fase de desarrollo, utilizando **SQLAlchemy** como ORM para facilitar migraciones a otras bases de datos (MySQL o PostgreSQL). |
-| **Frontend**           | Construido con **HTML5**, **CSS3** y **JavaScript**. Se recomienda el uso de **Bootstrap** o **Tailwind CSS** para el diseño responsivo. |
-| **Autenticación**      | Implementada con **Flask-Login** o **Flask-Security** para el manejo de sesiones de usuario y autenticación segura. |
+| **Frontend**           | Construido con **HTML5**, **CSS3** y **JavaScript**. Se utiliza el framework de **Tailwind CSS** para el diseño responsivo. |
+| **Autenticación**      | Implementada con **Flask-Login** para el manejo de sesiones de usuario y autenticación segura. |
 | **ORM**                | **SQLAlchemy**, para abstraer la lógica de acceso a datos y permitir compatibilidad entre diferentes motores de base de datos. |
 | **Formularios**        | Gestión mediante **Flask-WTF**, con validación tanto en cliente como en servidor. |
 | **Archivos estáticos** | Ubicados en `/static/` con subcarpetas para `css/`, `js/` e `img/`. |
 | **Templates**          | Sistema de plantillas **Jinja2**, utilizando herencia de plantillas base (`base.html`). |
 | **Entorno**            | Configurado mediante archivo `.env` para almacenar variables sensibles (clave secreta, rutas credenciales, etc.). |
 
-## 📁 Estructura de Carpetas del Proyecto
+# 3. Estructura de Carpetas del Proyecto
 
+```
 cilante_store/
 │
 ├── app.py
@@ -83,6 +84,7 @@ cilante_store/
 │       ├── css/
 │       ├── js/
 │       └── img/
+```
 
 app.py → Punto de entrada principal de la aplicación Flask.
 
@@ -104,15 +106,15 @@ templates/ → Plantillas HTML renderizadas con Jinja2.
 
 static/ → Archivos estáticos (CSS, JavaScript, imágenes).
 
-## Para la parte de IA
+# 4. IA: Entrenamiento de dos modelos de machine learning
 
-Asistente de bienestar hormonal personalizado
+Asistente de bienestar hormonal personalizado, con Random Forest para la predicción y NLP para procesamiento del mensaje del usuario
 
-### Concepto
+## Concepto
 
 Un asistente que aprenda del ciclo menstrual, hábitos y síntomas de cada usuaria para ofrecer recomendaciones adaptadas: cuándo consumir Cilanté, qué cantidad y qué otros hábitos pueden acompañarlo.
 
-### Datos a usar
+## Datos a usar
 
 - Fechas de ciclo menstrual
 
@@ -120,8 +122,67 @@ Un asistente que aprenda del ciclo menstrual, hábitos y síntomas de cada usuar
 
 - Preferencias de sabor, temperatura o momento del día
 
-### Resultado
+## Resultado
 
 Una chatbot que diga cosas como:
 
 “Según tus últimos ciclos, te recomiendo empezar a tomar Cilanté dos días antes del inicio de tu menstruación para reducir los cólicos.”
+
+# 5. Diseño base de datos
+
+tabla: usuarios
+
+- user_id -> PK, int, autoincrement, not null
+
+- username -> string 20, unique, not null
+
+- email -> string 50, unique, not null,
+
+- password_hash -> string 128, not null
+
+tabla: comentarios
+
+- coment_id -> PK, int, autoincrement, not null
+
+- contenido -> String 255, not null
+
+- user_id -> FK, int, not null
+
+tabla: contactos
+
+- contacto_id -> PK, int, autoincrement, not null
+
+- user_id -> FK, int, not null
+
+- nombre -> string 20, not null
+
+- apellido -> string 50, not null
+
+- telefono -> string 13, not null, unique
+
+tabla: ChatLogs
+
+- chatLog_id -> int, PK, not null, autoincrement
+
+- mensaje_usuario -> string 100
+
+- respuesta_bot -> string 255
+
+- created_at -> DateTime
+
+## ejemplo
+
+En tu archivo models.py, agrega una tabla simple para registrar las interacciones:
+
+```python
+#Y en routes.py, después de generar la respuesta:
+
+from ..models import ChatLog
+from cilante import db
+
+# dentro del endpoint /chaty 
+
+log = ChatLog(user_message=user_input, bot_response=respuesta)
+db.session.add(log)
+db.session.commit()
+```

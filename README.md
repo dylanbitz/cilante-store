@@ -12,35 +12,42 @@ Cilanté Store is a web application built with Flask that offers a unique produc
 ## Installation
 
 1. Clone the repository:
-   ```
+
+   ```bash
    git clone <repository-url>
    cd cilante_store
    ```
 
 2. Create a virtual environment:
-   ```
+
+   ```bash
    python -m venv venv
    ```
 
 3. Activate the virtual environment:
    - On Windows:
-     ```
+
+     ```Powershell
      venv\Scripts\activate
      ```
+
    - On macOS/Linux:
-     ```
+
+     ```bash
      source venv/bin/activate
      ```
 
 4. Install the required packages:
-   ```
+
+   ```bash
    pip install -r requirements.txt
    ```
 
 5. Set up the environment variables in the `.env` file.
 
 6. Run the application:
-   ```
+
+   ```bash
    python app.py
    ```
 
