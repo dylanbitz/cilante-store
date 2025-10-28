@@ -1,30 +1,36 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime, timezone
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(128))
-    comments = db.relationship('Comment', backref='author', lazy=True)
+class Usuarios(db.Model):
+    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(50), unique=True, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
+    
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
 
-class Comment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
-class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    ingredients = db.Column(db.String(200), nullable=False)
-    benefits = db.Column(db.Text, nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    image_url = db.Column(db.String(200), nullable=True)
+class Comentarios(db.Model):
+    coment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    contenido = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('usuarios.user_id'), nullable=False)
 
-class ContactMessage(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), nullable=False)
-    message = db.Column(db.Text, nullable=False)
+class Contactos(db.Model):
+    contacto_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('usuarios.user_id'), nullable=False)
+    nombre = db.Column(db.String(20), nullable=False)
+    apellido = db.Column(db.String(50), nullable=False)
+    telefono = db.Column(db.String(13), nullable=False, unique=True)
+
+class ChatLogs(db.Model):
+    log_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('usuarios.user_id'), nullable=False)
+    mensaje_usuario = db.Column(db.String(100), nullable=False)
+    respuesta_bot = db.Column(db.String(100), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
