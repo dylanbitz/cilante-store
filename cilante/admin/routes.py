@@ -23,3 +23,7 @@ def delete_user(user_id):
     # db.session.commit()
     flash('User deleted successfully.', 'success')
     return redirect(url_for('admin.manage_users'))
+
+@admin.route('/admin_under_construction')
+def admin_under_construction():
+    return "Esta pagina todavia está en construcción."

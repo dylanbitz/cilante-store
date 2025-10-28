@@ -10,3 +10,7 @@ def assistantfunc():
         #return jsonify({'response': response})
         return jsonify({'response': 'Hola'})
     return render_template('assistant.html')
+
+@assistant.route('/assistant_under_construction')
+def assistant_under_construction():
+    return "Esta pagina todavia está en construcción."
