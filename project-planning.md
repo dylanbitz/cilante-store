@@ -60,9 +60,12 @@ cilante_store/
 ├── app.py
 ├── config.py
 ├── requirements.txt
-│
+├── .env
 ├── instance/
 │   └── cilante.db
+├── migrations/
+│   └── versions/
+├── README.md
 │
 ├── cilante/
 │   ├── \__init__.py
