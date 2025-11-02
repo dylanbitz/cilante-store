@@ -21,6 +21,25 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <section class="collapse navbar-collapse" id="navbarNav">
+                    {% if current_user.is_authenticated %}
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ url_for('shop.index') }}">
+                                <i class="bi bi-house-door"></i> Inicio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ url_for('assistant.chat') }}">
+                                <i class="bi bi-chat-dots"></i> Asistente
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ url_for('auth.logout') }}">
+                                <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                    {% else %}
                     <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ url_for('shop.index') }}">
@@ -38,12 +57,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white"
-                                href="{{ url_for('assistant.assistant_under_construction') }}">
+                            <a class="nav-link text-white" href="{{ url_for('assistant.chat') }}">
                                 <i class="bi bi-chat-dots"></i> Asistente
                             </a>
                         </li>
                     </ul>
+                    {% endif %}
                 </section>
             </section>
         </nav>
