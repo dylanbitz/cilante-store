@@ -1,8 +1,13 @@
 import os
 
 class Config:
+    BASEDIR = os.path.abspath(os.path.dirname(__file__))
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///instance/cilante.db'
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASEDIR, 'instance', 'cilante.db')}"
+    '''SQLALCHEMY_DATABASE_URI = (
+        os.environ.get('DATABASE_URL') 
+        or f"sqlite:///{os.path.join(BASEDIR, 'instance', 'cilante.db')}"
+    )'''
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = int(os.environ.get('MAIL_PORT', 587))
