@@ -189,3 +189,25 @@ log = ChatLog(user_message=user_input, bot_response=respuesta)
 db.session.add(log)
 db.session.commit()
 ```
+
+## TODO-list de avances y pendientes
+
+### Logrado
+
+- Estructura base del proyecto con Flask y Blueprints
+- Configuración de base de datos SQLite y modelos principales (`Usuarios`, `Comentarios`, `Contactos`, `ChatLogs`)
+- Registro e inicio de sesión de usuarios con Flask-Login y Flask-WTF
+- Validación de formularios y manejo de sesiones
+- Plantillas base con Jinja2 y navbar dinámico según autenticación
+- Rutas principales para registro, login, logout y vistas públicas
+- Integración de archivos estáticos (CSS, JS, imágenes)
+- Configuración de variables sensibles con `.env`
+- Migraciones con Flask-Migrate
+- Esquema para guardar logs de chat en la base de datos
+
+### Pendiente
+
+- Estructura completa del chat (frontend y backend)
+- Implementar NLP para procesar el mensaje del usuario
+- Entrenar e integrar el modelo de Random Forest para recomendaciones
+- Mejorar la presentación y diseño final del sitio (UI/UX)
