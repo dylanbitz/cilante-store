@@ -3,14 +3,12 @@ from . import assistant
 #from .ml_model import predict_assistant_response
 
 @assistant.route('/assistant', methods=['GET', 'POST'])
-def assistantfunc():
+def chat():
     if request.method == 'POST':
         user_input = request.form.get('user_input')
         #response = predict_assistant_response(user_input)
         #return jsonify({'response': response})
         return jsonify({'response': 'Hola'})
-    return render_template('assistant.html')
+    return render_template('assistant/assistant.html')
 
-@assistant.route('/assistant_under_construction')
-def assistant_under_construction():
-    return "Esta pagina todavia está en construcción."
+
