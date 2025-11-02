@@ -34,6 +34,9 @@ def register():
         new_user.set_password(form.password.data)
         db.session.add(new_user)
         db.session.commit()
-        flash('Registro exitoso. Ahora puedes iniciar sesión.', 'success')
-        return redirect(url_for('auth.login'))
+        login_user(new_user)
+        flash('Registro exitoso.', 'success')
+        return redirect(url_for('shop.index'))
+    else:
+        print("Errores de validación:", form.errors)
     return render_template('auth/register.html', form=form)
