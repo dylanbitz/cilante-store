@@ -35,21 +35,6 @@
                 <input id="user-input" class="form-control" placeholder="Escribe..." />
                 <button id="send-button" class="btn btn-primary">Enviar</button>
             </div>
-            {% if current_user.is_authenticated %}
-            <div>
-                <p>Conversaciones recientes:</p>
-                <ul>
-                    {% for con in conversaciones_recientes %}
-                    <li>
-                        <a href="#" class="restore-conversation" data-conversation-id="{{ con.conversation_id }}">
-                            {{ con.preview }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-
         </section>
     </main>
 </div>

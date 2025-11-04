@@ -131,6 +131,39 @@ Una chatbot que diga cosas como:
 
 “Según tus últimos ciclos, te recomiendo empezar a tomar Cilanté dos días antes del inicio de tu menstruación para reducir los cólicos.”
 
+## Mini NLP con scikit-learn
+
+Si quieres dar un paso más adelante, puedes usar un clasificador de texto para detectar la intención del mensaje.
+
+Flujo:
+
+Tienes frases de entrenamiento etiquetadas:
+
+texto	etiqueta
+“me duele el vientre”	malestar
+“estoy bien hoy”	normal
+“tengo cólicos fuertes”	malestar
+
+Entrenas un modelo simple con TF-IDF + Naive Bayes o Logistic Regression:
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import make_pipeline
+
+vectorizer = TfidfVectorizer()
+model = MultinomialNB()
+
+nlp_model = make_pipeline(vectorizer, model)
+nlp_model.fit(frases, etiquetas)
+
+
+Luego predices:
+
+respuesta = nlp_model.predict(["me duele el abdomen"])
+
+
+Esto te permite manejar frases más variadas sin depender de keywords exactas.
+
 # 5. Diseño base de datos
 
 tabla: usuarios

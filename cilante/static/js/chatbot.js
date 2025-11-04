@@ -56,20 +56,4 @@ document.addEventListener('DOMContentLoaded', () => {
             sendMessage();
         }
     });
-
-    // Restaurar conversación anterior
-    const restoreYes = document.getElementById('restore-yes');
-    const restoreNo = document.getElementById('restore-no');
-    const restorePrompt = document.getElementById('restore-prompt');
-    if (restoreYes) {
-        restoreYes.addEventListener('click', function() {
-            // Recarga la página con el parámetro ?restaurar=1
-            window.location.search = '?rstr=1';
-        });
-    }
-    if (restoreNo) {
-        restoreNo.addEventListener('click', function() {
-            restorePrompt.remove();
-        });
-    }
 });
