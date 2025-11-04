@@ -40,6 +40,7 @@ def chat():
     mensaje = []
     recientes = {}
     botonSi = False
+    ultimo_log = None
     if current_user.is_authenticated:
         ultimo_log = ChatLogs.query.filter_by(
             user_id=current_user.user_id

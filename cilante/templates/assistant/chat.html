@@ -4,6 +4,25 @@
 <script src="{{ url_for('static', filename='js/chatbot.js') }}" defer></script>
 {% endblock %}
 
+{% block user_dropdown %}
+<li class="list-group-item dropdown">
+    <a class="text-decoration-none" href="#" role="button" id="conversationsDropdown"
+        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+        <i class="bi bi-chat-left-text"></i> Conversaciones anteriores
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end w-100" aria-labelledby="conversationsDropdown">
+        {% for con in conversaciones_recientes %}
+        <li>
+            <a href="#" class="restore-conversation" data-conversation-id="{{ con.conversation_id }}">
+                {{ con.preview }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+</li>
+{% endblock %}
+
 {% block body %}
 <div class="container">
     <header>
@@ -11,40 +30,26 @@
     </header>
     <main>
         <section id="chat-container">
-            {% if current_user.is_authenticated %}
-                {% if ultimo_log %}
-                <div class="alert alert-info d-flex justify-content-between align-items-center" id="restore-prompt">
-                    <span>¿Deseas restaurar la conversación anterior?</span>
-                    <div>
-                        <button id="restore-yes" class="btn btn-sm btn-primary me-2">Sí</button>
-                        <button id="restore-no" class="btn btn-sm btn-secondary">No</button>
-                    </div>
-                </div>
-                    {%if botonSi%}
-                    <div id="chat-box" class="chat-box">
-                        {% for m in messages %}
-                        <div class="bubble user">
-                            {{ m.mensaje_usuario }}
-                        </div>
-                        <div class="bubble bot">
-                            {{ m.respuesta_bot }}
-                            <div class="small text-muted">{{ m.created_at.strftime('%H:%M') }}</div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    <div id="chat-box" class="chat-box"></div>
-                    {% endif %}
-                {% else %}
-                <div id="chat-box" class="chat-box"></div>
-                {% endif %}
-            {% else %}
             <div id="chat-box" class="chat-box"></div>
-            {% endif %}
             <div class="input-group mt-3">
                 <input id="user-input" class="form-control" placeholder="Escribe..." />
                 <button id="send-button" class="btn btn-primary">Enviar</button>
             </div>
+            {% if current_user.is_authenticated %}
+            <div>
+                <p>Conversaciones recientes:</p>
+                <ul>
+                    {% for con in conversaciones_recientes %}
+                    <li>
+                        <a href="#" class="restore-conversation" data-conversation-id="{{ con.conversation_id }}">
+                            {{ con.preview }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
         </section>
     </main>
 </div>
