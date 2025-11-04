@@ -125,6 +125,130 @@ Un asistente que aprenda del ciclo menstrual, hábitos y síntomas de cada usuar
 
 - Preferencias de sabor, temperatura o momento del día
 
+## objetivo que predicirá el modelo
+
+Clasificación multiclase: ¿Cuándo empezar? (3 días antes / 2 días antes / 1 día antes / el mismo día / no necesario)
+Regresión: ¿Qué cantidad (ml/sachets) o frecuencia (tazas/día) recomendar?
+
+1. Definición clara de las etiquetas
+
+Clasificación multiclase: Define las clases con lógica de negocio (ej. 3 días antes, 2 días antes, 1 día antes, día de inicio, no necesario).
+Regresión: Define la variable continua (ej. cantidad en ml o número de tazas/día).
+Evita solapamiento: si una clase implica “no tomar”, la cantidad debe ser 0.
+
+2. Preparación de datos
+
+Features comunes para ambos modelos:
+
+Día del ciclo, fase (folicular, ovulatoria, lútea).
+Historial de síntomas (dolor, hinchazón, irritabilidad).
+Tendencias (promedio móvil, picos previos).
+Preferencias (momento del día, temperatura).
+Señales NLP (intención, entidades, sentimiento, embeddings reducidos).
+
+
+Normalización temporal: evita fuga de información (usa datos previos, no futuros).
+Imputación: síntomas faltantes → KNNImputer o medianas por usuaria.
+Codificación: variables categóricas → one-hot; embeddings → PCA/UMAP.
+
+3. Entrenamiento
+
+Dos modelos separados:
+
+RF_clasificacion para cuándo empezar.
+RF_regresion para cantidad.
+
+
+Hiperparámetros clave:
+
+n_estimators: 200–500.
+max_depth: controla sobreajuste (8–20).
+min_samples_leaf: sube si hay ruido.
+class_weight='balanced' para clasificación si hay desbalance.
+
+
+Validación:
+
+Usa GroupKFold por usuaria o TimeSeriesSplit para respetar temporalidad.
+No mezcles ciclos futuros en entrenamiento.
+
+4. Evaluación
+
+Clasificación: F1 por clase, balanced accuracy, matriz de confusión.
+Regresión: MAE y RMSE por usuaria y por fase del ciclo.
+Métricas de negocio: reducción de dolor reportado, adherencia.
+
+5. Interpretabilidad
+
+Usa Permutation Importance o SHAP para explicar recomendaciones.
+Ejemplo: “Te recomiendo 2 días antes porque tus ciclos son regulares (29±2 días) y tus picos de dolor ocurren cerca del día -1.”
+
+## Ingeniería de variables (features) para el RF
+
+Combina datos estructurados del ciclo + features derivadas + señales del lenguaje (NLP):
+A. Del ciclo menstrual
+
+Día del ciclo (días desde el último periodo).
+Longitud media de ciclo de la usuaria (y su desviación).
+Variabilidad de ciclos (p. ej., std de los últimos 6).
+Fase estimada (folicular, ovulatoria, lútea) como variable categórica.
+Días faltantes para el próximo periodo (predicción basada en patrón histórico).
+Estacionalidad: día de la semana, hora del día (para hábitos de consumo).
+
+B. De síntomas (histórico y recientes)
+
+Intensidad normalizada de dolor, hinchazón, irritabilidad, fatiga (0–10).
+Tendencia (promedio móvil de 3–5 días, pendiente).
+Hitos personales (picos de dolor previos y su distancia en días).
+
+C. Preferencias y contexto
+
+Preferencia de sabor/temperatura (one-hot).
+Momento preferido de consumo (mañana/tarde/noche).
+Adherencia: % días que siguió la recomendación anterior.
+Sensibilidad personal a Cilanté (response to treatment): ¿bajó el dolor tras consumir? (∆ dolor 24–48 h).
+
+D. Features de NLP (ver sección 4)
+
+Intención (p.ej., “quiero prevenir cólicos”, “me siento hinchada”) → dummies.
+Entidades extraídas: intensidad (“dolor 7/10”), tiempo (“desde ayer”), síntomas.
+Sentimiento/afectivo (negativo/positivo, score).
+Embeddings reducidos (p.ej., 5–20 componentes PCA).
+
+## Preparación de datos (calidad y split temporal)
+
+Series temporales por usuaria: evita fuga de información. Haz train/validation/test con división temporal (por ejemplo, últimos 2 ciclos como test).
+Agrupación por usuaria: no mezcles registros de la misma usuaria entre train y test si quieres evaluar generalización a usuarias nuevas (GroupKFold).
+Desbalance de clases: si pocos días requieren recomendación, usa class_weight='balanced', submuestreo o focal loss (si migras a otro modelo).
+Imputación: KNNImputer/medianas por usuaria para síntomas faltantes; marca columnas con “faltante” como banderas binarias.
+Normalización: RF no lo necesita, pero sí para embeddings si los combinas con otros modelos.
+
+## Entrenamiento y evaluación del Random Forest
+Hiperparámetros clave
+
+n_estimators: 200–600 (más árboles = más robusto).
+max_depth: controla sobreajuste (p. ej. 8–20).
+min_samples_leaf: 1–10 (sube si hay ruido).
+max_features: sqrt o log2.
+class_weight: balanced si hay desbalance.
+
+Buenas prácticas de validación
+
+TimeSeriesSplit por usuaria o GroupKFold (usuario como grupo) + respeto del tiempo.
+Métricas:
+
+Clasificación: F1 por clase, balanced accuracy, AUROC (si binaria).
+Regresión: MAE por usuaria y MAE estratificada por fase.
+Métricas de negocio: reducción de dolor reportado, adherencia, satisfacción.
+
+
+
+Interpretabilidad
+
+Importancias de características (Gini/Permutation).
+SHAP por usuaria para explicar: “La recomendación fue 2 días antes porque…”
+Usa esto para retroalimentación en el chatbot (“Te recomiendo empezar en 2 días porque tus últimos ciclos de 29±2 días y tus picos de dolor ocurren el día -1 a +1.”).
+
 ## Resultado
 
 Una chatbot que diga cosas como:
