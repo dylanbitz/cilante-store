@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chatbot.js') }}" defer></script>
+{% endblock %}
+
+{% block user_dropdown %}
+<li class="list-group-item dropdown">
+    <a class="text-decoration-none" href="#" role="button" id="conversationsDropdown"
+        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+        <i class="bi bi-chat-left-text"></i> Conversaciones anteriores
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end w-100" aria-labelledby="conversationsDropdown">
+        {% for con in conversaciones_recientes %}
+        <li>
+            <a href="#" class="restore-conversation" data-conversation-id="{{ con.conversation_id }}">
+                {{ con.preview }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <header>
+        <h1>Asistente de Bienestar Hormonal</h1>
+    </header>
+    <main>
+        <section id="chat-container">
+            <div id="chat-box" class="chat-box"></div>
+            <div class="input-group mt-3">
+                <input id="user-input" class="form-control" placeholder="Escribe..." />
+                <button id="send-button" class="btn btn-primary">Enviar</button>
+            </div>
+        </section>
+    </main>
+</div>
+{% endblock %}

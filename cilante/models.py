@@ -34,7 +34,8 @@ class Contactos(db.Model):
 
 class ChatLogs(db.Model):
     log_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    conversacion_id = db.Column(db.String(64), index=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('usuarios.user_id'), nullable=False)
     mensaje_usuario = db.Column(db.String(100), nullable=False)
     respuesta_bot = db.Column(db.String(100), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
+    created_at = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc), index=True)
